@@ -18,6 +18,25 @@ def getPokemonData(pokemon):
     else:
         return None
     
+# FUNCTION TO PROCESS THE DATA INFO OF A POKEMON 
+
+def pokemonInfo(pokemon):
+    data = getPokemonData(pokemon)
+    
+    if data:
+        
+        # extract details
+        print(f"Name: {data['name'].capitalize()}")
+        print(f"Height: {data['height']}")
+        print(f"Weight: {data['weight']}")
+        print(f"Base Experience: {data['base_experience']}")
+        
+        # prints the types of the pokemon
+        types = [t['type']['name'] for t in data['types']]
+        print(f"Types: {', '.join(types)}")
+    else:
+        print(f"Pokemon '{pokemon}' not found.")
+
 
 
 
