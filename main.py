@@ -40,6 +40,20 @@ def pokemonInfo(pokemon):
 
 
 
+def main():
+    # get user input
+    pokedex = input("\nEnter the name of the Pokemon: ")
+    
+    # display pokemon info
+    pokemonInfo(pokedex)
+    
+if __name__ == "__main__":
+
+    while True:
+        main()
+    
+    
+    
 
 
 
