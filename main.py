@@ -18,10 +18,22 @@ def getPokemonData(pokemon):
     else:
         return None
     
+
+# Function to fetch Pokémon species data for description
+def get_pokemon_species_data(pokemon_name):
+    url = f"https://pokeapi.co/api/v2/pokemon-species/{pokemon_name.lower()}"
+    response = requests.get(url)
+    
+    if response.status_code == 200:
+        return response.json()
+    else:
+        return None
+    
 # FUNCTION TO PROCESS THE DATA INFO OF A POKEMON 
 
 def pokemonInfo(pokemon):
     data = getPokemonData(pokemon)
+    species_data = get_pokemon_species_data(pokemon)
     
     if data:
         
@@ -30,10 +42,32 @@ def pokemonInfo(pokemon):
         print(f"Height: {data['height']}")
         print(f"Weight: {data['weight']}")
         print(f"Base Experience: {data['base_experience']}")
-        
+    
         # prints the types of the pokemon
         types = [t['type']['name'] for t in data['types']]
         print(f"Types: {', '.join(types)}")
+        
+        # Print the description if available in species data
+        if species_data:
+            flavor_texts = species_data['flavor_text_entries']
+            for entry in flavor_texts:
+                if entry['language']['name'] == 'en':
+                    description = entry['flavor_text'].replace('\n',' ')
+                    print(f"Description: {description}")
+                    print('')
+                    break
+        else:
+            print("Description not available.")
+            
+            
+            
+        # show all moveset 
+        
+        moveset = [m['move']['name'] for m in data['moves']]
+        print(f"All moves: {', '.join(moveset)}")
+        
+        
+        
     else:
         print(f"Pokemon '{pokemon}' not found.")
 
